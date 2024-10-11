@@ -1,0 +1,86 @@
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = {}
+
+    
+    def add_grade(self, subject, grade):
+        self.grades[subject] = grade
+
+    def average_grade(self):
+        if len(self.grades) == 0:
+            return 0
+        return sum(self.grades.values()) / len(self.grades)
+
+    def display_info(self):
+        print(f"Student Name: {self.name}")
+        for subject, grade in self.grades.items():
+            print(f"{subject}: {grade}")
+        print(f"Average Grade: {self.average_grade():.2f}")
+
+class GradeTracker:
+    def __init__(self):
+        self.students = []
+
+    def add_student(self, student):
+        self.students.append(student)
+
+    def find_student(self, name):
+        for student in self.students:
+            if student.name == name:
+                return student
+        return None
+
+    def display_all_students(self):
+        for student in self.students:
+            student.display_info()
+            print("-" * 20)
+
+def main():
+    tracker = GradeTracker()
+
+    while True:
+        print("\nGrade Tracker Menu:")
+        print("1. Add a student")
+        print("2. Add a grade for a student")
+        print("3. Display student info")
+        print("4. Display all students")
+        print("5. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            name = input("Enter student's name: ")
+            student = Student(name)
+            tracker.add_student(student)
+
+        elif choice == '2':
+            name = input("Enter student's name: ")
+            student = tracker.find_student(name)
+            if student:
+                subject = input("Enter subject: ")
+                grade = float(input("Enter grade: "))
+                student.add_grade(subject, grade)
+            else:
+                print("Student not found.")
+
+        elif choice == '3':
+            name = input("Enter student's name: ")
+            student = tracker.find_student(name)
+            if student:
+                student.display_info()
+            else:
+                print("Student not found.")
+
+        elif choice == '4':
+            tracker.display_all_students()
+
+        elif choice == '5':
+            print("Exiting program.")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+![image alt]( https://github.com/gowtham98764/CODETECH-Task2/blob/29af2734d38105afde023ebe5b538eb21c73cfa9/Screenshot%202024-10-11%20110918.png)
